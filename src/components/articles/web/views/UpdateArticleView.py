@@ -2,9 +2,11 @@ from fastapi import Depends, HTTPException, status
 from dishka import FromDishka
 
 from dishka.integrations.fastapi import inject
-from components.articles.exceptions import ArticleNotFoundException, ForbiddenException
-from components.articles.infrastructure.services.core import IArticleService
-from components.articles.web.models import ArticleUpdateRequest, ArticleResponse
+from components.articles.exceptions.ArticleNotFoundException import ArticleNotFoundException
+from components.articles.exceptions.ForbiddenException import ForbiddenException
+from components.articles.infrastructure.services.core.IArticleService import IArticleService
+from components.articles.web.models.ArticleUpdateRequest import ArticleUpdateRequest
+from components.articles.web.models.ArticleResponse import ArticleResponse
 from components.users.infrastructure.models.User import User
 from components.users.web.dependencies import get_current_user
 

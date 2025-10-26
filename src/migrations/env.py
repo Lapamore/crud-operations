@@ -19,15 +19,13 @@ if config.config_file_name is not None:
 
 section = config.config_ini_section
 
-load_dotenv()
+load_dotenv(encoding="utf-8")
 
 config.set_section_option(section, "POSTGRES_USER", os.environ.get("POSTGRES_USER"))
-config.set_section_option(section, "POSTGRES_PASS", os.environ.get("POSTGRES_PASS"))
+config.set_section_option(section, "POSTGRES_PASSWORD", os.environ.get("POSTGRES_PASSWORD"))
 config.set_section_option(section, "POSTGRES_HOST", os.environ.get("POSTGRES_HOST"))
 config.set_section_option(section, "POSTGRES_PORT", os.environ.get("POSTGRES_PORT"))
-config.set_section_option(
-    section, "POSTGRES_DATABASE", os.environ.get("POSTGRES_DATABASE")
-)
+config.set_section_option(section, "POSTGRES_DATABASE", os.environ.get("POSTGRES_DATABASE"))
 
 target_metadata = Base.metadata
 
