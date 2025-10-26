@@ -19,7 +19,7 @@ class RegisterUserView:
     ) -> UserResponse:
         try:
             user = await user_service.register(user_create)
-            token = auth_service.create_access_token(subject=user.email)
+            token = auth_service.create_access_token(subject=str(user.id))
             user.token = token
             return UserResponse.model_validate(user)
         except UserAlreadyExistsException as e:
