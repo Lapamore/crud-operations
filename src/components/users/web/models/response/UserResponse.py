@@ -1,9 +1,10 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 from typing import Optional
 
 
 class UserResponse(BaseModel):
-    email: EmailStr
+    model_config = ConfigDict(from_attributes=True)
+
     username: str
-    bio: Optional[str] = None
-    image_url: Optional[str] = None
+    email: EmailStr
+    token: str
