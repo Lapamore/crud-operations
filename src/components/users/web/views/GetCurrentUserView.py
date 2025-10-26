@@ -1,6 +1,6 @@
 from dishka import FromDishka
 from dishka.integrations.fastapi import inject
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from fastapi.params import Depends
 from fastapi.security import OAuth2PasswordBearer
 
@@ -19,14 +19,12 @@ class GetCurrentUserView:
         token: str = Depends(oauth2_scheme)
     ) -> UserResponse:
         user_id = auth_service.get_current_user_id(token)
+        user = await user_repo.get_by_id(user_id)
 
-        if user_id is None:
-            raise HTTPException(status_code=401, detail="Invalid token")
-
-        user = user_repo.get_by_id(user_id)
-
-        if user is None:
-            raise HTTPException(status_code=404, detail="User not found")
-
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found",
+            )
         return UserResponse.model_validate(user)
 

@@ -8,6 +8,7 @@ from components.users.infrastructure.services.core.IUserService import IUserServ
 from components.users.web.models.request.UserCreateRequest import UserCreateRequest
 from components.users.web.models.request.UserUpdateRequest import UserUpdateRequest
 from components.users.infrastructure.models.User import User
+from components.users.exceptions.UserNotFoundException import UserNotFoundException
 
 
 class UserService(IUserService):
@@ -42,16 +43,23 @@ class UserService(IUserService):
     async def get_by_email(self, email: str) -> Optional[User]:
         return await self._user_repo.get_by_email(email)
 
-    async def update(self, user: User, user_update: UserUpdateRequest) -> User:
+    async def update(
+        self,
+        current_user: User,
+        user_update: UserUpdateRequest,
+    ) -> User:
         update_data = user_update.model_dump(exclude_unset=True)
-        
-        if "email" in update_data and update_data["email"] != user.email:
-            if await self._user_repo.get_by_email(update_data["email"]):
-                raise UserAlreadyExistsException("User with this email already exists")
-
-        if "username" in update_data and update_data["username"] != user.username:
-            if await self._user_repo.get_by_username(update_data["username"]):
-                raise UserAlreadyExistsException("User with this username already exists")
-
-        updated_user = await self._user_repo.update(user, update_data)
+        updated_user = await self._user_repo.update(current_user, update_data)
         return updated_user
+
+    async def get_user_by_id(self, user_id: int) -> User:
+        user = await self._user_repo.get_by_id(user_id)
+        if not user:
+            raise UserNotFoundException("User not found")
+        return user
+
+    async def get_user_by_email(self, email: str) -> User:
+        user = await self._user_repo.get_by_email(email)
+        if not user:
+            raise UserNotFoundException("User not found")
+        return user
