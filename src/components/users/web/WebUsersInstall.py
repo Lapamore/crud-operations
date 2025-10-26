@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from components.users.web.models.response.ProfileResponse import ProfileResponse
 from components.users.web.views.RegisterUserView import RegisterUserView
 from components.users.web.views.LoginUserView import LoginUserView
 from components.users.web.views.GetCurrentUserView import GetCurrentUserView
@@ -39,7 +40,7 @@ class WebUsersInstall:
             methods=["GET"],
             tags=["users"],
             summary="Get current user",
-            response_model=UserResponse,
+            response_model=ProfileResponse,
             endpoint=get_current_user_view.__call__,
         )
         app.add_api_route(
