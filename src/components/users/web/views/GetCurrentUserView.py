@@ -3,11 +3,10 @@ from dishka.integrations.fastapi import inject
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
-from src.components.users.infrastructure.repository.core.IUserRepository import (
-    IUserRepository,
-)
-from src.components.users.web.models.response.ProfileResponse import ProfileResponse
-from src.infrastructure.auth.core.IAuthService import IAuthService
+from components.users.infrastructure.repository.core.IUserRepository import IUserRepository
+
+from components.users.web.models.response.ProfileResponse import ProfileResponse
+from infrastructure.auth.core.IAuthService import IAuthService
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/users/login")
 
