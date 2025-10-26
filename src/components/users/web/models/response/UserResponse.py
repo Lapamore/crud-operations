@@ -1,5 +1,4 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
-from typing import Optional
 
 
 class UserResponse(BaseModel):
@@ -7,4 +6,4 @@ class UserResponse(BaseModel):
 
     username: str
     email: EmailStr
-    token: str
+    token: str | None = None
