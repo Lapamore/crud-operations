@@ -8,6 +8,9 @@ from sqlalchemy import pool
 from alembic import context
 
 from infrastructure.db.base import Base
+from components.users.infrastructure.models.User import User
+from components.articles.infrastructure.models.Article import Article
+from components.comments.infrastructure.models.Comment import Comment
 
 config = context.config
 

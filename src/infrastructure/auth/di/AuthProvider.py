@@ -6,7 +6,6 @@ from infrastructure.auth.impl.AuthService import AuthService
 
 
 class AuthProvider(Provider):
-
     @provide(scope=Scope.APP)
     def get_auth_service(self) -> IAuthService:
         return AuthService(

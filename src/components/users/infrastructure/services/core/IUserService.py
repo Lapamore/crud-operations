@@ -1,21 +1,25 @@
+from abc import ABC, abstractmethod
 from typing import Optional
-from zope.interface import Interface
 
 from components.users.web.models.request.UserCreateRequest import UserCreateRequest
 from components.users.web.models.request.UserUpdateRequest import UserUpdateRequest
-from components.users.web.models.response.UserResponse import UserResponse
+from components.users.infrastructure.models.User import User
 
 
-class IUserService(Interface):
+class IUserService(ABC):
 
-    async def register_user(self, user_create: UserCreateRequest) -> UserResponse:
+    @abstractmethod
+    async def register(self, user_create: UserCreateRequest) -> User:
         raise NotImplementedError()
 
-    async def login_user(self, email: str, password: str) -> str:
+    @abstractmethod
+    async def login(self, email: str, password: str) -> User:
         raise NotImplementedError()
 
-    async def get_user_by_email(self, email: str) -> Optional[UserResponse]:
+    @abstractmethod
+    async def get_by_email(self, email: str) -> Optional[User]:
         raise NotImplementedError()
 
-    async def update_user(self, current_email: str, user_update: UserUpdateRequest) -> UserResponse:
+    @abstractmethod
+    async def update(self, user: User, user_update: UserUpdateRequest) -> User:
         raise NotImplementedError()
