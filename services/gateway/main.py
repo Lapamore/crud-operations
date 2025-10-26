@@ -2,6 +2,7 @@ from dishka import make_async_container
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from dishka.integrations.fastapi import setup_dishka
+import uvicorn
 
 from components.users.infrastructure.di.UserRepoProvider import UserRepoProvider
 from components.users.infrastructure.di.UserServiceProvider import UserServiceProvider
@@ -47,3 +48,7 @@ def create_app() -> FastAPI:
     WebCommentsInstall()(app)
 
     return app
+
+if __name__ == "__main__":
+    app = create_app()
+    uvicorn.run(app, host="0.0.0.0", port=9080)

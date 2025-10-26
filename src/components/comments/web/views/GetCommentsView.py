@@ -13,9 +13,10 @@ from components.comments.web.models.response.CommentResponse import CommentRespo
 class GetCommentsView:
     @inject
     async def __call__(
-        slug: str,
-        article_service: FromDishka[IArticleService],
-        comment_service: FromDishka[ICommentService],
+            self,
+            slug: str,
+            article_service: FromDishka[IArticleService],
+            comment_service: FromDishka[ICommentService]
     ) -> List[CommentResponse]:
         try:
             article = await article_service.get_article_by_slug(slug)

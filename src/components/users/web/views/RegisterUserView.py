@@ -12,7 +12,8 @@ from infrastructure.auth.core.IAuthService import IAuthService
 
 class RegisterUserView:
     @inject
-    async def register_user(
+    async def __call__(
+        self,
         user_create: UserCreateRequest,
         user_service: FromDishka[IUserService],
         auth_service: FromDishka[IAuthService],

@@ -6,14 +6,15 @@ from components.articles.exceptions.ForbiddenException import ForbiddenException
 from components.comments.exceptions.CommentNotFoundException import CommentNotFoundException
 from components.comments.infrastructure.services.core.ICommentService import ICommentService
 from components.users.infrastructure.models.User import User
-
+from components.users.web.dependencies import get_current_user
 
 
 class DeleteCommentView:
     @inject
     async def __call__(
-        comment_id: int,
+        self,
         comment_service: FromDishka[ICommentService],
+        comment_id: int,
         user: User = Depends(get_current_user)
     ) -> Response:
         try:

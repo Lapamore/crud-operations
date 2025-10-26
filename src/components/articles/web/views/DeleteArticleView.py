@@ -2,17 +2,19 @@ from fastapi import Depends, HTTPException, status, Response
 from dishka import FromDishka
 from dishka.integrations.fastapi import inject
 
-from components.articles.exceptions import ArticleNotFoundException, ForbiddenException
-from components.articles.infrastructure.services.core import IArticleService
-from components.users.infrastructure.models import User
-
+from components.articles.exceptions.ArticleNotFoundException import ArticleNotFoundException
+from components.articles.exceptions.ForbiddenException import ForbiddenException
+from components.articles.infrastructure.services.core.IArticleService import IArticleService
+from components.users.infrastructure.models.User import User
+from components.users.web.dependencies import get_current_user
 
 
 class DeleteArticleView:
     @inject
     async def __call__(
+        self,
         slug: str,
-        article_service: FromDishka[IArticleService] = None,
+        article_service: FromDishka[IArticleService],
         user: User = Depends(get_current_user),
     ) -> Response:
         try:

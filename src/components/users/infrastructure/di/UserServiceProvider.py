@@ -7,7 +7,7 @@ from infrastructure.auth.core.IAuthService import IAuthService
 
 
 class UserServiceProvider(Provider):
-    @provide(scope=Scope.APP)
+    @provide(scope=Scope.REQUEST)
     def get_user_service(
         self,
         user_repo: IUserRepository,

@@ -9,15 +9,17 @@ from components.comments.infrastructure.services.core.ICommentService import ICo
 from components.comments.web.models.request.CommentCreateRequest import CommentCreateRequest
 from components.comments.web.models.response.CommentResponse import CommentResponse
 from components.users.infrastructure.models.User import User
+from components.users.web.dependencies import get_current_user
 
 
 class AddCommentView:
     @inject
     async def __call__(
+        self,
+        article_service: FromDishka[IArticleService],
+        comment_service: FromDishka[ICommentService],
         slug: str,
         comment_create: CommentCreateRequest,
-        article_service: FromDishka[IArticleService] = None,
-        comment_service: FromDishka[ICommentService] = None,
         author: User = Depends(get_current_user),
     ) -> JSONResponse:
         try:

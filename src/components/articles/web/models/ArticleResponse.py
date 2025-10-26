@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel
-from components.users.web.models.response import ProfileResponse
+from components.users.web.models.response.ProfileResponse import ProfileResponse
 
 
 class ArticleResponse(BaseModel):

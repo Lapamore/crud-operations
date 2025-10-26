@@ -10,8 +10,9 @@ from components.articles.web.models.ArticleResponse import ArticleResponse
 class GetArticleBySlugView:
     @inject
     async def __call__(
-        slug: str,
-        article_service: FromDishka[IArticleService] = None,
+            self,
+            slug: str,
+            article_service: FromDishka[IArticleService]
     ) -> ArticleResponse:
         try:
             article = await article_service.get_article_by_slug(slug)

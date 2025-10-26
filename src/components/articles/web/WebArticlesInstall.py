@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from typing import List
 
-from components.articles.web.models.ArticleResponse import ArticleResponse
 from components.articles.web.views.CreateArticleView import CreateArticleView
 from components.articles.web.views.DeleteArticleView import DeleteArticleView
 from components.articles.web.views.GetArticleBySlugView import GetArticleBySlugView
 from components.articles.web.views.GetArticleView import GetArticleView
 from components.articles.web.views.UpdateArticleView import UpdateArticleView
+from components.articles.web.models.ArticleResponse import ArticleResponse
 
 
 class WebArticlesInstall:

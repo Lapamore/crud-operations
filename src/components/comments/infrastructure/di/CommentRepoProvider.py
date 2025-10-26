@@ -6,6 +6,6 @@ from components.comments.infrastructure.repository.impl.CommentRepository import
 
 
 class CommentRepoProvider(Provider):
-    @provide(scope=Scope.APP)
+    @provide(scope=Scope.REQUEST)
     def get_comment_repo(self, session: AsyncSession) -> ICommentRepository:
         return CommentRepository(session)

@@ -6,6 +6,6 @@ from components.articles.infrastructure.services.impl.ArticleService import Arti
 
 
 class ArticleServiceProvider(Provider):
-    @provide(scope=Scope.APP)
+    @provide(scope=Scope.REQUEST)
     def get_article_service(self, article_repo: IArticleRepository) -> IArticleService:
         return ArticleService(article_repo)

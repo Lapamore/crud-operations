@@ -5,16 +5,17 @@ from dishka.integrations.fastapi import inject
 from components.articles.exceptions import ArticleNotFoundException, ForbiddenException
 from components.articles.infrastructure.services.core import IArticleService
 from components.articles.web.models import ArticleUpdateRequest, ArticleResponse
-from components.users.infrastructure.models import User
-
+from components.users.infrastructure.models.User import User
+from components.users.web.dependencies import get_current_user
 
 
 class UpdateArticleView:
     @inject
     async def __call__(
+        self,
+        article_service: FromDishka[IArticleService],
         slug: str,
         article_update: ArticleUpdateRequest,
-        article_service: FromDishka[IArticleService],
         user: User = Depends(get_current_user),
     ) -> ArticleResponse:
         try:

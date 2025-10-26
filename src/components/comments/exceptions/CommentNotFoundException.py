@@ -1,4 +1,4 @@
-from components.comments.exceptions import CommentException
+from components.comments.exceptions.CommentException import CommentException
 
 
 class CommentNotFoundException(CommentException):

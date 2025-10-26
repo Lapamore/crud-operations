@@ -6,6 +6,6 @@ from components.comments.infrastructure.services.impl.CommentService import Comm
 
 
 class CommentServiceProvider(Provider):
-    @provide(scope=Scope.APP)
+    @provide(scope=Scope.REQUEST)
     def get_comment_service(self, comment_repo: ICommentRepository) -> ICommentService:
         return CommentService(comment_repo)

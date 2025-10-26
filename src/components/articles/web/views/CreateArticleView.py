@@ -3,9 +3,11 @@ from fastapi.responses import JSONResponse
 from dishka import FromDishka
 from dishka.integrations.fastapi import inject
 
-from components.articles.infrastructure.services.core import IArticleService
-from components.articles.web.models import ArticleCreateRequest, ArticleResponse
-from components.users.infrastructure.models import User
+from components.articles.infrastructure.services.core.IArticleService import IArticleService
+
+from components.articles.web.models.ArticleCreateRequest import ArticleCreateRequest
+from components.articles.web.models.ArticleResponse import ArticleResponse
+from components.users.infrastructure.models.User import User
 from components.users.web.dependencies import get_current_user
 
 

@@ -6,6 +6,6 @@ from components.articles.infrastructure.repository.impl.ArticleRepository import
 
 
 class ArticleRepoProvider(Provider):
-    @provide(scope=Scope.APP)
+    @provide(scope=Scope.REQUEST)
     def get_article_repo(self, session: AsyncSession) -> IArticleRepository:
         return ArticleRepository(session)

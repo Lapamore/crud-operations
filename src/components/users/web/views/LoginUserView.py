@@ -12,9 +12,10 @@ from infrastructure.auth.core.IAuthService import IAuthService
 class LoginUserView:
     @inject
     async def __call__(
+        self,
+        user_service: FromDishka[IUserService],
+        auth_service: FromDishka[IAuthService],
         form_data: OAuth2PasswordRequestForm = Depends(),
-        user_service: FromDishka[IUserService] = None,
-        auth_service: FromDishka[IAuthService] = None,
     ) -> TokenResponse:
         try:
             user = await user_service.login(

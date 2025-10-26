@@ -4,7 +4,8 @@ from components.users.web.views.RegisterUserView import RegisterUserView
 from components.users.web.views.LoginUserView import LoginUserView
 from components.users.web.views.GetCurrentUserView import GetCurrentUserView
 from components.users.web.views.UpdateUserView import UpdateUserView
-from components.users.web.models.response import UserResponse, TokenResponse
+from components.users.web.models.response.UserResponse import UserResponse
+from components.users.web.models.response.TokenResponse import TokenResponse
 
 
 class WebUsersInstall:
@@ -22,7 +23,7 @@ class WebUsersInstall:
             methods=["POST"],
             tags=["users"],
             summary="Register a new user",
-            endpoint=register_user_view.__call__(),
+            endpoint=register_user_view.__call__,
             status_code=201,
         )
         app.add_api_route(
@@ -31,7 +32,7 @@ class WebUsersInstall:
             tags=["users"],
             summary="Login for access token",
             response_model=TokenResponse,
-            endpoint=login_user_view.__call__(),
+            endpoint=login_user_view.__call__,
         )
         app.add_api_route(
             path="/api/user",
@@ -39,7 +40,7 @@ class WebUsersInstall:
             tags=["users"],
             summary="Get current user",
             response_model=UserResponse,
-            endpoint=get_current_user_view.__call__(),
+            endpoint=get_current_user_view.__call__,
         )
         app.add_api_route(
             path="/api/user",
@@ -47,5 +48,5 @@ class WebUsersInstall:
             tags=["users"],
             summary="Update current user",
             response_model=UserResponse,
-            endpoint=update_user_view.__call__(),
+            endpoint=update_user_view.__call__,
         )
