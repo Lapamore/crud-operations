@@ -43,13 +43,20 @@ class UserService(IUserService):
     async def get_by_email(self, email: str) -> Optional[User]:
         return await self._user_repo.get_by_email(email)
 
-    async def update(
-        self,
-        current_user: User,
-        user_update: UserUpdateRequest,
-    ) -> User:
+    async def update_user(self, user: User, user_update: UserUpdateRequest) -> User:
         update_data = user_update.model_dump(exclude_unset=True)
-        updated_user = await self._user_repo.update(current_user, update_data)
+
+        if "email" in update_data and update_data["email"] != user.email:
+            if await self._user_repo.get_by_email(update_data["email"]):
+                raise UserAlreadyExistsException("User with this email already exists")
+
+        if "username" in update_data and update_data["username"] != user.username:
+            if await self._user_repo.get_by_username(update_data["username"]):
+                raise UserAlreadyExistsException(
+                    "User with this username already exists"
+                )
+
+        updated_user = await self._user_repo.update(user, update_data)
         return updated_user
 
     async def get_user_by_id(self, user_id: int) -> User:
